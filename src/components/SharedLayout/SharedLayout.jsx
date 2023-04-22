@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-// import { Suspense } from 'react';
+import { Suspense } from 'react';
 
 function SharedLayout() {
   return (
@@ -19,21 +19,10 @@ function SharedLayout() {
         </div>
       </header>
       <div>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </div>
-      {/* <Suspense
-        fallback={
-          <RotatingLines
-            strokeColor="grey"
-            strokeWidth="5"
-            animationDuration="0.75"
-            width="96"
-            visible={true}
-          />
-        }
-      >
-       
-      </Suspense> */}
     </div>
   );
 }
