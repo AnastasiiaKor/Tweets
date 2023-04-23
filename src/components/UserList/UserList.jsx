@@ -6,12 +6,13 @@ import {
 } from 'services/api';
 import UserListItem from 'components/UserListItem/UserListItem';
 
-export default function UserList() {
+export default function UserList({ selectedOption }) {
   const [users, setUsers] = useState([]);
   const [index, setIndex] = useState(3);
-  const [followedUsers, setFollowedUsers] = useState(
-    JSON.parse(localStorage.getItem('followedUsers')) || []
+  const [followedUsersIds, setFollowedUsersIds] = useState(
+    JSON.parse(localStorage.getItem('followedUsersIds')) || []
   );
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
     async function fetch() {
@@ -25,16 +26,35 @@ export default function UserList() {
     fetch();
   }, []);
 
-  const visibleUsers = users.slice(0, index);
+  useEffect(() => {
+    if (selectedOption === 'all') {
+      setSelectedUsers(users);
+    } else if (selectedOption === 'following') {
+      const filteredUsers = users.filter(user =>
+        followedUsersIds.includes(user.id)
+      );
+      setSelectedUsers(filteredUsers);
+    } else if (selectedOption === 'follow') {
+      const filteredUsers = users.filter(
+        user => !followedUsersIds.includes(user.id)
+      );
+      setSelectedUsers(filteredUsers);
+    }
+  }, [selectedOption, users, followedUsersIds]);
+
+  const visibleUsers = selectedUsers.slice(0, index);
 
   function loadMore() {
     setIndex(index + 3);
   }
 
   function followUser(user) {
-    const updatedFollowedUsers = [...followedUsers, user.id];
-    setFollowedUsers(updatedFollowedUsers);
-    localStorage.setItem('followedUsers', JSON.stringify(updatedFollowedUsers));
+    const updatedFollowedUsers = [...followedUsersIds, user.id];
+    setFollowedUsersIds(updatedFollowedUsers);
+    localStorage.setItem(
+      'followedUsersIds',
+      JSON.stringify(updatedFollowedUsers)
+    );
     async function increase(user) {
       try {
         const updatedUser = await increaseUserFollowers(user);
@@ -49,9 +69,12 @@ export default function UserList() {
   }
 
   function unfollowUser(user) {
-    const updatedFollowedUsers = followedUsers.filter(id => id !== user.id);
-    setFollowedUsers(updatedFollowedUsers);
-    localStorage.setItem('followedUsers', JSON.stringify(updatedFollowedUsers));
+    const updatedFollowedUsers = followedUsersIds.filter(id => id !== user.id);
+    setFollowedUsersIds(updatedFollowedUsers);
+    localStorage.setItem(
+      'followedUsersIds',
+      JSON.stringify(updatedFollowedUsers)
+    );
     async function decrease(user) {
       try {
         const updatedUser = await decreaseUserFollowers(user);
@@ -86,12 +109,12 @@ export default function UserList() {
               user={user}
               follow={followUser}
               unfollow={unfollowUser}
-              followedUsers={followedUsers}
+              followedUsers={followedUsersIds}
             />
           </li>
         ))}
       </ul>
-      {visibleUsers.length < users.length && (
+      {visibleUsers.length < selectedUsers.length && (
         <button type="button" onClick={loadMore}>
           Load more
         </button>
