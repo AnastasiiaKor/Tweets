@@ -5,7 +5,7 @@ function Tweets({ users }) {
     <>
       <NavLink to="/">&larr; Go back</NavLink>
       <p> This is tweets</p>
-      <UserList users={users} />
+      <UserList />
     </>
   );
 }
