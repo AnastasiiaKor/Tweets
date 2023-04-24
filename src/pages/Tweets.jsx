@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import ButtonBack from 'components/Buttons/ButtonBack';
 import UserList from 'components/UserList/UserList';
 import Dropdown from 'components/Dropdown/Dropdown';
 function Tweets() {
@@ -10,8 +10,7 @@ function Tweets() {
   };
   return (
     <>
-      <NavLink to="/">&larr; Go back</NavLink>
-      <p> This is tweets</p>
+      <ButtonBack />
       <Dropdown onChange={handleChange} />
       <UserList selectedOption={selectedOption} />
     </>

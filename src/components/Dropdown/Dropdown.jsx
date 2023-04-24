@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Select from 'react-select';
+import { FlexContainer, Text, StyledSelect } from './Dropdown.styled';
 
 const options = [
   { value: 'all', label: 'all' },
@@ -13,20 +13,19 @@ const Dropdown = ({ onChange }) => {
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const handleChange = selectedOption => {
-    // console.log(selectedOption.value);
     setSelectedOption(selectedOption);
     onChange(selectedOption.value);
   };
 
   return (
-    <>
-      <p>Show </p>
-      <Select
+    <FlexContainer>
+      <Text>Show </Text>
+      <StyledSelect
         value={selectedOption}
         onChange={handleChange}
         options={options}
       />
-    </>
+    </FlexContainer>
   );
 };
 

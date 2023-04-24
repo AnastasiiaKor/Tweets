@@ -5,6 +5,8 @@ import {
   decreaseUserFollowers,
 } from 'services/api';
 import UserListItem from 'components/UserListItem/UserListItem';
+import LoadMore from 'components/Buttons/LoadMore';
+import { List, Item } from './UserList.styled';
 
 export default function UserList({ selectedOption }) {
   const [users, setUsers] = useState([]);
@@ -102,22 +104,20 @@ export default function UserList({ selectedOption }) {
 
   return (
     <>
-      <ul>
+      <List>
         {visibleUsers.map(user => (
-          <li key={user.id}>
+          <Item key={user.id}>
             <UserListItem
               user={user}
               follow={followUser}
               unfollow={unfollowUser}
               followedUsers={followedUsersIds}
             />
-          </li>
+          </Item>
         ))}
-      </ul>
+      </List>
       {visibleUsers.length < selectedUsers.length && (
-        <button type="button" onClick={loadMore}>
-          Load more
-        </button>
+        <LoadMore onClick={loadMore} />
       )}
     </>
   );

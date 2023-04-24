@@ -1,29 +1,41 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
+import { RotatingLines } from 'react-loader-spinner';
+import { Container, Header, List, Link } from './SharedLayout.styled';
 
 function SharedLayout() {
   return (
-    <div>
-      <header>
-        <div>
+    <>
+      <Header>
+        <Container>
           <nav>
-            <ul>
+            <List>
               <li>
-                <NavLink to="/">Home</NavLink>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <NavLink to="/tweets">Tweets</NavLink>
+                <Link to="/tweets">Tweets</Link>
               </li>
-            </ul>
+            </List>
           </nav>
-        </div>
-      </header>
-      <div>
-        <Suspense fallback={null}>
+        </Container>
+      </Header>
+      <Container>
+        <Suspense
+          fallback={
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          }
+        >
           <Outlet />
         </Suspense>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
 

@@ -1,3 +1,6 @@
+import FollowButton from 'components/Buttons/FollowButton';
+import FollowingButton from 'components/Buttons/FollowingButton';
+import { Text, Flex, Image } from './UserListItem.styled';
 export default function UserListItem({
   user,
   follow,
@@ -6,20 +9,16 @@ export default function UserListItem({
 }) {
   return (
     <>
-      <div>
-        <img src={user.avatar} alt={user.name} />
-      </div>
-      <p>{user.name}</p>
-      <p>{user.tweets} Tweets</p>
-      <p> {user.followers.toLocaleString('en-US')} Followers</p>
+      <Image src={user.avatar} alt={user.name} />
+
+      <Flex>
+        <Text>{user.tweets} Tweets</Text>
+        <Text> {user.followers.toLocaleString('en-US')} Followers</Text>
+      </Flex>
       {followedUsers.includes(user.id) ? (
-        <button type="button" onClick={() => unfollow(user)}>
-          Following
-        </button>
+        <FollowingButton type="button" onClick={unfollow} user={user} />
       ) : (
-        <button type="button" onClick={() => follow(user)}>
-          Follow
-        </button>
+        <FollowButton type="button" onClick={follow} user={user} />
       )}
     </>
   );
