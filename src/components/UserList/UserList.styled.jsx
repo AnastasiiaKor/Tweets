@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import CoverImg from '../../images/back-1x.png';
+import CoverImgX2 from '../../images/back-2x.png';
 
 export const List = styled.ul`
   padding: 0;
@@ -29,4 +31,19 @@ export const Item = styled.li`
 
   box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
+  &:before {
+    content: '';
+    background-image: url(${CoverImg});
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 308px;
+    height: 168px;
+  }
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    &:before {
+      background-image: url(${CoverImgX2});
+    }
+  }
 `;

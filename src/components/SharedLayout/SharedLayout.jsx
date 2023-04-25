@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { RotatingLines } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 import { Container, Header, List, Link } from './SharedLayout.styled';
 
 function SharedLayout() {
@@ -23,12 +23,20 @@ function SharedLayout() {
       <Container>
         <Suspense
           fallback={
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="96"
+            <Oval
+              height={80}
+              width={80}
+              color="#4b2a99"
+              wrapperStyle={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
               visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#5736a3 "
+              strokeWidth={2}
+              strokeWidthSecondary={2}
             />
           }
         >

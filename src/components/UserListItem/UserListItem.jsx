@@ -11,6 +11,7 @@ export default function UserListItem({
   return (
     <>
       <Logo />
+
       <Wrapper>
         <Image src={user.avatar} alt={user.name} />
       </Wrapper>
