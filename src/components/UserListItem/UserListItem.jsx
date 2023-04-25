@@ -1,6 +1,7 @@
 import FollowButton from 'components/Buttons/FollowButton';
 import FollowingButton from 'components/Buttons/FollowingButton';
-import { Text, Flex, Image } from './UserListItem.styled';
+import { Text, Flex, Image, Wrapper } from './UserListItem.styled';
+import Logo from 'components/Logo';
 export default function UserListItem({
   user,
   follow,
@@ -9,7 +10,10 @@ export default function UserListItem({
 }) {
   return (
     <>
-      <Image src={user.avatar} alt={user.name} />
+      <Logo />
+      <Wrapper>
+        <Image src={user.avatar} alt={user.name} />
+      </Wrapper>
 
       <Flex>
         <Text>{user.tweets} Tweets</Text>

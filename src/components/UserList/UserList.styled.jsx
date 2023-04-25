@@ -8,11 +8,11 @@ export const List = styled.ul`
   flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 30px;
-  gap: calc((100% - 3 * 380px) / 2);
-  row-gap: 40px;
+  gap: 20px;
 `;
 
 export const Item = styled.li`
+  position: relative;
   width: 380px;
   height: 460px;
   display: flex;
@@ -20,7 +20,7 @@ export const Item = styled.li`
   justify-content: flex-end;
   align-items: center;
   padding-bottom: 36px;
-  background: linear-gradient(
+  background-image: linear-gradient(
     114.99deg,
     #471ca9 -0.99%,
     #5736a3 54.28%,
